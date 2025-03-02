@@ -91,3 +91,32 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+
+// 系统调用：获取进程的内存信息
+uint64 sys_meminfo(void) {
+  struct proc *p = myproc();  // 获取当前进程
+  struct meminfo_t meminfo;
+  uint64 user_addr;
+
+  // 获取用户传入的指针地址
+  argaddr(0, &user_addr);
+  if (user_addr == 0) {
+    return -1; // 错误：参数无效
+  }
+
+  // 获取进程的内存信息
+  meminfo.start_code = 0x80000000;  // 代码段起始地址（固定）
+  meminfo.end_code = p->trapframe->epc;  // 代码段结束地址
+  meminfo.start_data = PGROUNDUP(p->sz / 2);  // 简单估算数据段
+  meminfo.end_data = meminfo.start_data + 0x1000;  // 假设数据段大小 4KB
+  meminfo.start_brk = p->sz;  // 堆起始地址
+  meminfo.stack_top = p->kstack;  // 栈顶地址
+
+  // 将数据拷贝到用户空间
+  if (copyout(p->pagetable, user_addr, (char *)&meminfo, sizeof(meminfo)) < 0) {
+    return -1; // 拷贝失败
+  }
+
+  return 0;
+}

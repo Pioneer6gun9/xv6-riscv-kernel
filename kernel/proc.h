@@ -105,3 +105,13 @@ struct proc {
   struct inode *cwd;           // Current directory
   char name[16];               // Process name (debugging)
 };
+
+// 定义 meminfo_t 结构
+struct meminfo_t {
+  uint64 start_code;
+  uint64 end_code;
+  uint64 start_data;
+  uint64 end_data;
+  uint64 start_brk;
+  uint64 stack_top;
+};
