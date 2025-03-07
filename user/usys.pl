@@ -37,4 +37,4 @@ entry("sbrk");
 entry("sleep");
 entry("uptime");
 entry("meminfo");
-
+entry("mem_monitor"); # 系统调用封装

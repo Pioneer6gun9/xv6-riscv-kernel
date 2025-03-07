@@ -108,10 +108,10 @@ struct proc {
 
 // 定义 meminfo_t 结构
 struct meminfo_t {
-  uint64 start_code;
-  uint64 end_code;
-  uint64 start_data;
-  uint64 end_data;
-  uint64 start_brk;
-  uint64 stack_top;
+  uint64 start_code;   // 代码段起始地址
+  uint64 end_code;     // 代码段结束地址
+  uint64 start_data;   // 数据段起始地址
+  uint64 end_data;     // 数据段结束地址
+  uint64 start_brk;    // 堆（brk）起始地址
+  uint64 stack_top;    // 栈顶地址
 };

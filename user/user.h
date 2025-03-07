@@ -11,7 +11,8 @@ int read(int, void*, int);
 int close(int);
 int kill(int);
 int exec(const char*, char**);
-int open(const char*, int);
+// int open(const char*, int);
+int open(const char*, int, ...);
 int mknod(const char*, short, short);
 int unlink(const char*);
 int fstat(int fd, struct stat*);
@@ -43,6 +44,7 @@ void *memcpy(void *, const void *, uint);
 void* malloc(uint);
 void free(void*);
 
+// 用户接口声明
 struct meminfo_t {
   uint64 start_code;
   uint64 end_code;
